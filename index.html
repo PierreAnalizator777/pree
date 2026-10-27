@@ -1,347 +1,817 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr">
+<html lang="fr-CD">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PierreHack AI - EXPLOIT HUB</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
-        @keyframes pulse-red { 0%, 100% { box-shadow: 0 0 10px rgba(239, 68, 68, 0.4); } 50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.8); } }
-        .error-glow { animation: pulse-red 2s infinite; }
-        .game-btn { position: relative; overflow: hidden; transition: all 0.3s ease; }
-        .game-btn::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
-            opacity: 0; transition: opacity 0.3s ease;
-        }
-        .game-btn:hover::before { opacity: 1; }
-        .game-btn.active { border-color: #3b82f6; box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); transform: translateY(-3px); background-color: #18181b; }
-        .game-icon-container { transition: transform 0.3s ease; }
-        .game-btn:hover .game-icon-container { transform: scale(1.05); }
-        .game-btn.active .game-icon-container { transform: scale(1.1); }
-        
-        .loading-bar { position: relative; overflow: hidden; }
-        .loading-bar::after {
-            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.8), transparent);
-            animation: loading 1.5s infinite ease-in-out;
-        }
-        @keyframes loading { 100% { left: 200%; } }
-        
-        @keyframes slideUpFade {
-            from { opacity: 0; transform: translateY(20px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .animate-slide-up { animation: slideUpFade 0.4s ease-out forwards; }
-        @keyframes fadeOutDown {
-            from { opacity: 1; transform: translateY(0); }
-            to { opacity: 0; transform: translateY(20px); }
-        }
-        .animate-fade-out { animation: fadeOutDown 0.4s ease-out forwards; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#100a19">
+<title>PiereeHack — Édition Congo</title>
+
+<style>
+:root {
+  color-scheme: dark;
+  --line: #422a54;
+  --muted: #bea9cc;
+  --purple: #c99aff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 0 0, #68278c45, transparent 55%),
+    radial-gradient(ellipse at 100% 45%, #d82b5028, transparent 45%),
+    #100a19;
+  color: #faf5ff;
+  font: 15px/1.6 Arial, sans-serif;
+  min-height: 100vh;
+}
+
+button, input, a { font: inherit; }
+button { cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+[hidden] { display: none !important; }
+
+button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--purple);
+  outline-offset: 4px;
+}
+
+header, main, footer {
+  max-width: 1100px;
+  margin: auto;
+}
+
+header {
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  gap: 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #a549ee, #e52e59);
+  font-size: 26px;
+  font-weight: 900;
+}
+
+.brand strong { font-size: 23px; }
+
+.brand small {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--muted);
+}
+
+.version {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+main { padding: 35px 24px; }
+
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--purple);
+}
+
+h1 {
+  font-size: clamp(34px, 5vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  margin: 16px 0;
+}
+
+h1 span { color: #ee98df; }
+p { color: var(--muted); }
+
+.intro {
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 270px 1fr;
+  gap: 20px;
+}
+
+.panel {
+  background: linear-gradient(145deg, #251630, #160f20);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: 0 15px 50px #0003;
+}
+
+.side { align-self: start; }
+
+.label {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  margin: 0 0 14px;
+}
+
+.games {
+  display: grid;
+  gap: 10px;
+}
+
+.game {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: #241830;
+  color: white;
+  text-align: left;
+  min-width: 0;
+}
+
+.game.active {
+  border-color: #b56ce8;
+  background: linear-gradient(110deg, #7335a755, #dc355323);
+}
+
+.symbol {
+  font-size: 25px;
+  width: 32px;
+  text-align: center;
+  color: #e4b5ff;
+}
+
+.game strong {
+  display: block;
+  font-size: 13px;
+}
+
+.game small {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.access {
+  border-top: 1px solid var(--line);
+  margin-top: 20px;
+  padding-top: 18px;
+}
+
+.access label {
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.access p {
+  font-size: 11px;
+  margin: 5px 0 12px;
+}
+
+.pin {
+  width: 100%;
+  background: #110b1a;
+  color: white;
+  border: 1px solid #81519b;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 22px;
+  letter-spacing: 7px;
+  text-align: center;
+}
+
+.activate {
+  width: 100%;
+  background: #8739be;
+  border: 0;
+  border-radius: 10px;
+  padding: 12px;
+  margin-top: 10px;
+  color: white;
+  font-weight: bold;
+}
+
+.activate:hover { background: #a34ed9; }
+
+.feedback {
+  min-height: 20px;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.error { color: #ff9eb6; }
+.success { color: #8ee4b2; }
+
+.telegram {
+  display: block;
+  margin-top: 18px;
+  font-size: 12px;
+  color: #dcafff;
+}
+
+.work-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.caption {
+  font-size: 12px;
+  margin: 5px 0;
+}
+
+.badge {
+  border: 1px solid #714280;
+  color: #deb5ef;
+  border-radius: 30px;
+  padding: 5px 9px;
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+.stage {
+  display: grid;
+  place-items: center;
+  min-height: 350px;
+  margin: 22px 0;
+  padding: 24px;
+  background:
+    radial-gradient(ellipse at 50% 10%, #8536b122, transparent 65%),
+    #100b18;
+  border: 1px solid #392347;
+  border-radius: 15px;
+}
+
+.grid {
+  width: min(100%, 300px);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 9px;
+}
+
+.cell {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(140deg, #372440, #241730);
+  border: 1px solid #50305f;
+  border-radius: 10px;
+  font-size: 20px;
+  color: #9c7eae;
+}
+
+.cell.safe {
+  background: linear-gradient(140deg, #be4ee8, #ed4163);
+  color: white;
+  border-color: #ee8acd;
+  box-shadow: 0 0 18px #e63c6a22;
+}
+
+.result {
+  width: 100%;
+  text-align: center;
+}
+
+.plane {
+  font-size: 58px;
+  color: #d8adff;
+}
+
+.coeff {
+  font-size: 64px;
+  font-weight: bold;
+  color: #ff9bc3;
+}
+
+.result p { font-size: 12px; }
+
+.path {
+  display: grid;
+  gap: 10px;
+  max-width: 330px;
+  margin: auto;
+}
+
+.path-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.path-row span {
+  padding: 9px;
+  background: #271a35;
+  border: 1px solid #513360;
+  border-radius: 8px;
+  color: #aa8cba;
+}
+
+.path-row .chosen {
+  background: linear-gradient(140deg, #b84de6, #e94066);
+  color: white;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+}
+
+.primary {
+  flex: 1;
+  border: 0;
+  border-radius: 11px;
+  padding: 15px;
+  color: white;
+  font-weight: bold;
+  background: linear-gradient(100deg, #8035c2, #b82b59);
+}
+
+.primary:hover { filter: brightness(1.15); }
+
+.primary:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
+.reset {
+  width: 52px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: #21152e;
+  color: white;
+  font-size: 24px;
+}
+
+.notice {
+  font-size: 11px;
+  text-align: center;
+  margin: 14px 0 0;
+}
+
+.bottom {
+  font-size: 11px;
+  margin-top: 18px;
+}
+
+footer {
+  padding: 22px 24px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.nojs {
+  background: #4d2037;
+  padding: 15px;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  header { padding: 18px 16px; }
+  .brand strong { font-size: 20px; }
+  .brand small { font-size: 8px; letter-spacing: 1px; }
+  main { padding: 28px 16px; }
+  .layout { grid-template-columns: 1fr; gap: 16px; }
+  .panel { padding: 17px; }
+  .games { grid-template-columns: repeat(3, 1fr); gap: 7px; }
+
+  .game {
+    flex-direction: column;
+    text-align: center;
+    padding: 10px 4px;
+    gap: 3px;
+  }
+
+  .game strong { font-size: 11px; }
+  .game small { font-size: 9px; }
+  .stage { min-height: 300px; padding: 20px; margin: 18px 0; }
+  .grid { max-width: 270px; }
+  .badge { font-size: 8px; }
+  .primary { font-size: 12px; padding: 14px 8px; }
+  footer { flex-wrap: wrap; }
+}
+</style>
 </head>
-<body class="bg-[#050505] text-zinc-300 min-h-screen flex flex-col items-center p-4 overflow-x-hidden">
 
-    <!-- VIEW 1: LANDING PAGE -->
-    <div id="view-landing" class="flex-1 w-full max-w-xl flex flex-col items-center justify-center animate-fade-in">
-        <div class="text-center mb-10">
-            <svg class="w-28 h-28 mx-auto mb-4 fill-white drop-shadow-[0_0_15px_rgba(59,130,246,0.6)]" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <path d="M40 20 L50 35 L40 50 L55 50 L65 30 L55 20 Z" />
-                <path d="M60 40 L65 50 L55 60 L65 60 L75 45 L65 35 Z" />
-                <path d="M70 55 L75 65 L65 75 L75 75 L85 60 L75 50 Z" />
-            </svg>
-            <h1 class="text-5xl font-black text-white tracking-tighter mb-2">PierreHack <span class="text-blue-500">AI</span></h1>
-            <p class="text-sm text-zinc-500 uppercase tracking-widest font-bold">Système de prédiction et d'exploitation v2.4</p>
-        </div>
+<body>
+<noscript>
+  <div class="nojs">
+    Activez JavaScript pour utiliser cette interface.
+  </div>
+</noscript>
 
-        <div class="bg-zinc-900/80 backdrop-blur-md border border-zinc-800 rounded-2xl p-8 shadow-2xl w-full text-center relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600"></div>
-            <h2 class="text-2xl font-black text-white mb-4 tracking-wide">Exploitation des Algorithmes</h2>
-            <p class="text-sm text-zinc-400 mb-8 leading-relaxed">
-                Le réseau neuronal PierreHack analyse les serveurs RNG en temps réel et fournit des prédictions avec une précision allant jusqu'à <span class="text-green-400 font-bold drop-shadow-[0_0_5px_rgba(74,222,128,0.5)]">96.4%</span>.
-            </p>
-            <button type="button" id="btn-start" class="w-full bg-blue-600 hover:bg-blue-500 text-white py-4 rounded-xl font-bold text-lg tracking-wider transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center gap-3 group">
-                Activer le système et démarrer
-                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-            </button>
-        </div>
-    </div>
+<header>
+  <a class="brand" href="./">
+    <span class="logo">P.</span>
+    <span>
+      <strong>PiereeHack</strong>
+      <small>ÉDITION CONGO · FRANÇAIS</small>
+    </span>
+  </a>
+  <span class="version">VERSION 05</span>
+</header>
 
-    <!-- VIEW 2: LOADING TRANSITION -->
-    <div id="view-loader" class="hidden flex-1 w-full max-w-xl flex-col items-center justify-center animate-fade-in">
-        <div class="text-center">
-            <div class="w-20 h-20 bg-blue-900/20 rounded-full flex items-center justify-center mx-auto mb-6 relative">
-                <svg class="w-10 h-10 text-blue-500 animate-spin" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-                <div class="absolute inset-0 border-t-2 border-blue-500 rounded-full animate-[spin_2s_linear_infinite]"></div>
-            </div>
-            <h3 class="text-xl font-black text-white mb-2">Connexion aux serveurs du casino...</h3>
-            <p class="text-sm text-zinc-500 mb-6">Initialisation du réseau neuronal et création d'une session sécurisée...</p>
-            <div class="w-48 h-1.5 bg-zinc-800 rounded-full mx-auto overflow-hidden loading-bar"></div>
-        </div>
-    </div>
+<main>
+  <div class="eyebrow">RDC · KINSHASA · ÉDITION NÉON</div>
 
-    <!-- VIEW 3: MAIN DASHBOARD -->
-    <div id="view-main" class="hidden flex-1 w-full max-w-xl flex-col items-center pt-6 pb-20 animate-fade-in">
-        
-        <!-- Header -->
-        <div class="w-full flex items-center justify-between mb-8 pb-4 border-b border-zinc-800">
-            <div class="flex items-center gap-3">
-                <svg class="w-10 h-10 fill-white drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M40 20 L50 35 L40 50 L55 50 L65 30 L55 20 Z" />
-                    <path d="M60 40 L65 50 L55 60 L65 60 L75 45 L65 35 Z" />
-                    <path d="M70 55 L75 65 L65 75 L75 75 L85 60 L75 50 Z" />
-                </svg>
-                <div>
-                    <div class="flex items-center gap-2 mb-1">
-                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]"></span>
-                        <span class="text-xs font-black text-green-500 tracking-wider">SYSTÈME SÉCURISÉ</span>
-                    </div>
-                    <p class="text-[10px] font-bold text-zinc-500 tracking-widest">SESSION: 0x8F2A...B19</p>
-                </div>
-            </div>
-        </div>
+  <h1>
+    Un nouvel univers.<br>
+    <span>À vous de jouer.</span>
+  </h1>
 
-        <!-- Game Selection -->
-        <div class="w-full flex items-center justify-between mb-4">
-            <h3 class="text-sm font-bold text-zinc-300">Sélectionnez l'algorithme ciblé :</h3>
-        </div>
+  <p class="intro">
+    Trois expériences. Une seule interface.
+    Explorez votre espace PiereeHack.
+  </p>
 
-        <div class="grid grid-cols-3 gap-3 w-full mb-8">
-            <!-- Mines Game -->
-            <button type="button" data-game="MINES" class="game-btn bg-[#0a0a0c] border border-zinc-800 rounded-2xl p-3 flex flex-col items-center justify-center gap-3">
-                <div class="w-16 h-16 rounded-xl overflow-hidden bg-gradient-to-br from-indigo-900 to-black border border-indigo-500/30 flex items-center justify-center game-icon-container relative shadow-inner">
-                     <span class="text-3xl relative z-10 drop-shadow-lg">💣</span>
-                     <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTE5IDBMMTkgMjBMMCAyMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDUpIiBzdHJva2Utd2lkdGg9IjEiLz48L3N2Zz4=')] opacity-50 z-0"></div>
-                </div>
-                <span class="font-black text-xs text-white tracking-wider">MINES</span>
-            </button>
-            
-            <!-- Aviator Game -->
-            <button type="button" data-game="AVIATOR" class="game-btn bg-[#0a0a0c] border border-zinc-800 rounded-2xl p-3 flex flex-col items-center justify-center gap-3">
-                <div class="w-16 h-16 rounded-xl overflow-hidden bg-gradient-to-br from-red-900/80 to-black border border-red-500/30 flex items-center justify-center game-icon-container relative shadow-inner">
-                     <span class="text-3xl relative z-10 drop-shadow-lg">✈️</span>
-                     <svg class="absolute bottom-0 left-0 w-full h-full opacity-40 z-0" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 100 L20 80 L40 85 L100 20 L100 100 Z" fill="rgba(239, 68, 68, 0.2)" stroke="rgba(239, 68, 68, 0.5)" stroke-width="2"/></svg>
-                </div>
-                <span class="font-black text-xs text-white tracking-wider">AVIATOR</span>
-            </button>
-            
-            <!-- Apple of Fortune Game -->
-            <button type="button" data-game="APPLE" class="game-btn bg-[#0a0a0c] border border-zinc-800 rounded-2xl p-3 flex flex-col items-center justify-center gap-3">
-                <div class="w-16 h-16 rounded-xl overflow-hidden bg-gradient-to-br from-green-900 to-black border border-green-500/30 flex items-center justify-center game-icon-container relative shadow-inner">
-                     <span class="text-3xl relative z-10 drop-shadow-lg">🍏</span>
-                     <div class="absolute inset-0 bg-[radial-gradient(circle,rgba(74,222,128,0.1)_0%,rgba(0,0,0,0)_70%)] z-0"></div>
-                </div>
-                <span class="font-black text-[10px] text-center leading-tight text-white tracking-widest">APPLE OF<br>FORTUNE</span>
-            </button>
-        </div>
+  <div class="layout">
+    <aside class="panel side">
+      <p class="label">01 / CHOISISSEZ VOTRE JEU</p>
 
-        <button type="button" id="btn-get-signal" class="w-full bg-blue-600 hover:bg-blue-500 text-white py-5 rounded-xl font-black text-base tracking-widest transition-all flex items-center justify-center gap-3 opacity-50 cursor-not-allowed border border-blue-400/30" disabled>
-            <svg id="icon-spin" class="w-6 h-6 animate-spin hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-            <span id="text-btn-signal">Démarrer la connexion au serveur</span>
+      <nav class="games" aria-label="Jeux">
+        <button type="button"
+                class="game active"
+                data-game="mines"
+                aria-pressed="true">
+          <span class="symbol">◇</span>
+          <span>
+            <strong>MINES</strong>
+            <small>Grille de cristaux</small>
+          </span>
         </button>
-    </div>
 
-    <!-- MODAL ERROR -->
-    <div id="modal-error" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 hidden flex-col items-center justify-center p-4 animate-fade-in z-[60]">
-        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl p-8 w-full max-w-sm shadow-2xl relative flex flex-col items-center text-center">
-            <div class="w-16 h-16 bg-yellow-500/10 rounded-full flex items-center justify-center mb-5">
-                <svg class="w-8 h-8 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-            </div>
-            <h3 class="text-xl font-black text-white mb-2">Compte non trouvé</h3>
-            <p class="text-sm text-zinc-400 mb-6 leading-relaxed">
-                Désolé, l'algorithme ne peut pas être lié à votre compte actuel.<br>
-                Vous devez créer un <span class="text-white font-bold">nouveau compte</span> pour garantir le succès de l'exploitation.
-            </p>
-            <button type="button" id="btn-show-register" class="bg-white text-black hover:bg-zinc-200 py-3.5 px-6 rounded-xl font-bold text-base transition-colors w-full shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-                Créer un nouveau compte
-            </button>
-            <button type="button" id="btn-close-error" class="absolute top-5 right-5 text-zinc-600 hover:text-white transition-colors bg-zinc-900 p-2 rounded-full">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
+        <button type="button"
+                class="game"
+                data-game="aviator"
+                aria-pressed="false">
+          <span class="symbol">✈</span>
+          <span>
+            <strong>AVIATOR</strong>
+            <small>Simulation de vol</small>
+          </span>
+        </button>
+
+        <button type="button"
+                class="game"
+                data-game="penalty"
+                aria-pressed="false">
+          <span class="symbol">⚽</span>
+          <span>
+            <strong>PENALTY</strong>
+          </span>
+        </button>
+      </nav>
+
+      <section class="access">
+        <label for="pin">Votre code d’accès</label>
+        <p>Saisissez votre code pour commencer.</p>
+
+        <input class="pin"
+               id="pin"
+               type="text"
+               inputmode="numeric"
+               autocomplete="off"
+               placeholder="• • • •"
+               aria-describedby="pin-status">
+
+        <button class="activate" id="activate" type="button">
+          Activer mon accès
+        </button>
+
+        <div class="feedback"
+             id="pin-status"
+             role="status"
+             aria-live="polite">
+          Accès verrouillé.
         </div>
-    </div>
+      </section>
 
-    <!-- MODAL REGISTER -->
-    <div id="modal-register" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 hidden flex-col items-center justify-center p-4 animate-fade-in">
-        <div class="bg-zinc-950 border border-zinc-800 rounded-3xl p-6 w-full max-w-md shadow-2xl relative">
-            
-            <div class="text-center mb-6">
-                <div class="w-14 h-14 bg-blue-500/10 text-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-[0_0_15px_rgba(59,130,246,0.2)]">
-                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
-                </div>
-                <h3 class="text-2xl font-black text-white">Activation d'un nouveau compte</h3>
-                <p class="text-sm text-zinc-500 mt-1">Étapes simples pour connecter le réseau neuronal</p>
-            </div>
+      <a class="telegram"
+         href="https://t.me/+OIQwEr-t40xmYTRi"
+         target="_blank"
+         rel="noopener noreferrer">
+        Ouvrir Telegram ↗
+      </a>
+    </aside>
 
-            <div class="space-y-4 mb-6">
-                <!-- Instructions -->
-                <div class="bg-zinc-900/50 border border-zinc-800/80 rounded-xl p-4 text-sm text-zinc-300 leading-relaxed text-left space-y-3">
-                    <p class="flex items-center gap-3">
-                        <span class="bg-blue-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs shrink-0 font-bold">1</span> 
-                        <span>Inscrivez-vous pour un <span class="text-white font-bold">nouveau compte</span> via le bouton ci-dessous.</span>
-                    </p>
-                    <p class="flex items-center gap-3">
-                        <span class="bg-blue-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs shrink-0 font-bold">2</span> 
-                        <span>Utilisez le code promo <span class="text-blue-400 font-bold bg-blue-900/30 px-1.5 py-0.5 rounded border border-blue-500/30">KNB777</span></span>
-                    </p>
-                    <p class="flex items-center gap-3">
-                        <span class="bg-blue-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs shrink-0 font-bold">3</span> 
-                        <span>Envoyez une capture d'écran de votre ID pour l'activer.</span>
-                    </p>
-                </div>
-                
-                <!-- Registration Button -->
-                <a href="https://reffpa.com/L?tag=d_5547148m_69917c_&site=5547148&ad=69917&r=registration" target="_blank" rel="noreferrer" class="w-full bg-gradient-to-r from-blue-700 to-blue-500 hover:from-blue-600 hover:to-blue-400 text-white py-3.5 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all shadow-[0_0_15px_rgba(37,99,235,0.4)] relative overflow-hidden mb-3">
-                    <span class="relative z-10">S'inscrire sur 1XBET</span>
-                    <svg class="w-5 h-5 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                </a>
-
-                <!-- Telegram Button -->
-                <a href="https://t.me/+OIQwEr-t40xmYTRi" target="_blank" rel="noreferrer" class="w-full bg-[#2AABEE] hover:bg-[#229ED9] text-white py-3.5 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(42,171,238,0.4)]">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.888-.662 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                    Envoyer la capture d'écran
-                </a>
-            </div>
-            
-            <button type="button" id="btn-close-modal" class="absolute top-5 right-5 text-zinc-600 hover:text-white transition-colors bg-zinc-900 p-2 rounded-full">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
+    <section class="panel">
+      <div class="work-head">
+        <div>
+          <h2 id="game-title">MINES</h2>
+          <p class="caption" id="caption">
+            25 cases. Explorez la grille.
+          </p>
         </div>
-    </div>
 
-    <!-- LIVE WINS FEED -->
-    <div id="live-feed" class="fixed bottom-4 left-4 right-4 md:left-6 md:right-auto md:w-72 flex flex-col gap-2 z-40 pointer-events-none">
-    </div>
+        <span class="badge" id="badge">ACCÈS VERROUILLÉ</span>
+      </div>
 
-    <script>
-        document.getElementById('btn-start').addEventListener('click', () => {
-            document.getElementById('view-landing').classList.add('hidden');
-            document.getElementById('view-landing').classList.remove('flex');
-            
-            document.getElementById('view-loader').classList.remove('hidden');
-            document.getElementById('view-loader').classList.add('flex');
-            
-            setTimeout(() => {
-                document.getElementById('view-loader').classList.add('hidden');
-                document.getElementById('view-loader').classList.remove('flex');
-                
-                document.getElementById('view-main').classList.remove('hidden');
-                document.getElementById('view-main').classList.add('flex');
-            }, 2000);
-        });
+      <div class="stage">
+        <div class="grid"
+             id="mines"
+             aria-label="Grille de 25 cases"></div>
 
-        document.querySelectorAll('.game-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                document.querySelectorAll('.game-btn').forEach(b => {
-                    b.classList.remove('active');
-                });
-                const currentBtn = e.currentTarget;
-                currentBtn.classList.add('active');
+        <div class="result" id="aviator" hidden>
+          <div class="plane">✈</div>
+          <div class="coeff" id="coeff">×1.00</div>
+          <p>Coefficient affiché</p>
+        </div>
 
-                const btnSignal = document.getElementById('btn-get-signal');
-                btnSignal.disabled = false;
-                btnSignal.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-blue-600', 'hover:bg-blue-500');
-                btnSignal.classList.add('bg-green-600', 'hover:bg-green-500', 'border-green-400/50', 'shadow-[0_0_20px_rgba(22,163,74,0.4)]');
-                document.getElementById('text-btn-signal').textContent = `Pirater ${currentBtn.dataset.game}`;
-            });
-        });
+        <div class="result" id="penalty" hidden>
+          <div class="path" id="path"></div>
+        </div>
+      </div>
 
-        document.getElementById('btn-get-signal').addEventListener('click', () => {
-            const btnSignal = document.getElementById('btn-get-signal');
-            const textBtn = document.getElementById('text-btn-signal');
-            const iconSpin = document.getElementById('icon-spin');
-            
-            btnSignal.disabled = true;
-            textBtn.textContent = 'Injection du code en cours...';
-            iconSpin.classList.remove('hidden');
+      <div class="controls">
+        <button class="primary" id="run" type="button">
+          Saisir mon code →
+        </button>
 
-            setTimeout(() => {
-                btnSignal.disabled = false;
-                textBtn.textContent = 'Réessayer';
-                iconSpin.classList.add('hidden');
+        <button class="reset"
+                id="reset"
+                type="button"
+                aria-label="Réinitialiser">↻</button>
+      </div>
 
-                document.getElementById('modal-error').classList.remove('hidden');
-                document.getElementById('modal-error').classList.add('flex');
-            }, 1800);
-        });
+      <p class="notice" id="result-status" aria-live="polite">
+        Prêt à commencer.
+      </p>
 
-        document.getElementById('btn-show-register').addEventListener('click', () => {
-            document.getElementById('modal-error').classList.add('hidden');
-            document.getElementById('modal-error').classList.remove('flex');
-            
-            document.getElementById('modal-register').classList.remove('hidden');
-            document.getElementById('modal-register').classList.add('flex');
-        });
+    </section>
+  </div>
 
-        document.getElementById('btn-close-error').addEventListener('click', () => {
-            document.getElementById('modal-error').classList.add('hidden');
-            document.getElementById('modal-error').classList.remove('flex');
-        });
 
-        document.getElementById('btn-close-modal').addEventListener('click', () => {
-            document.getElementById('modal-register').classList.add('hidden');
-            document.getElementById('modal-register').classList.remove('flex');
-        });
+</main>
 
-        const fakeGames = [
-            {name: 'MINES', icon: '💣'}, 
-            {name: 'AVIATOR', icon: '✈️'}, 
-            {name: 'APPLE', icon: '🍏'}
-        ];
+<footer>
+  <span>© 2026 PiereeHack · RDC</span>
+  <span>Édition Congo · Version 05</span>
+</footer>
 
-        function generateRandomId() {
-            const endDigits = Math.floor(1000 + Math.random() * 9000); 
-            return `176***${endDigits}`;
+<script>
+(function () {
+  'use strict';
+
+  var VALID_PIN = '6723';
+  var unlocked = false;
+  var busy = false;
+  var currentGame = 'mines';
+  var timer = null;
+
+  function $(id) {
+    return document.getElementById(id);
+  }
+
+  var buttons = document.querySelectorAll('.game');
+
+  var names = {
+    mines: 'MINES',
+    aviator: 'AVIATOR',
+    penalty: 'PENALTY'
+  };
+
+  var descriptions = {
+    mines: '25 cases. Explorez la grille.',
+    aviator: 'Explorez le coefficient de vol.',
+    penalty: 'Quatre étapes. Explorez la séquence de tirs.'
+  };
+
+  function normalizePin(value) {
+    return String(value)
+      .replace(/[\u0660-\u0669]/g, function (c) {
+        return String(c.charCodeAt(0) - 0x0660);
+      })
+      .replace(/[\u06f0-\u06f9]/g, function (c) {
+        return String(c.charCodeAt(0) - 0x06f0);
+      })
+      .replace(/[\uff10-\uff19]/g, function (c) {
+        return String(c.charCodeAt(0) - 0xff10);
+      })
+      .replace(/[\s\u200b-\u200f\u202a-\u202e\u2066-\u2069\ufeff]/g, '');
+  }
+
+  function activate() {
+    if (unlocked) {
+      $('pin-status').textContent =
+        'Accès déjà activé. Choisissez un jeu.';
+      return;
+    }
+
+    var code = normalizePin($('pin').value);
+
+    if (code !== VALID_PIN) {
+      $('pin-status').className = 'feedback error';
+
+      $('pin-status').textContent = code
+        ? 'Code incorrect. Veuillez réessayer.'
+        : 'Saisissez votre code à 4 chiffres.';
+
+      $('pin').setAttribute('aria-invalid', 'true');
+      $('pin').focus();
+      return;
+    }
+
+    unlocked = true;
+
+    $('pin').value = '';
+    $('pin').setAttribute('aria-invalid', 'false');
+
+    $('pin-status').className = 'feedback success';
+    $('pin-status').textContent =
+      '✓ Accès activé. Vous pouvez commencer.';
+
+    $('activate').textContent = '✓ Accès activé';
+    $('badge').textContent = 'ACCÈS ACTIVÉ';
+    $('run').textContent = 'Commencer →';
+
+    $('result-status').textContent =
+      'Accès activé. Choisissez un jeu.';
+
+    $('run').focus();
+  }
+
+  $('activate').addEventListener('click', activate);
+
+  $('pin').addEventListener('keydown', function (event) {
+    if (event.key === 'Enter' || event.keyCode === 13) {
+      event.preventDefault();
+      activate();
+    }
+  });
+
+  for (var i = 0; i < 25; i++) {
+    var cell = document.createElement('div');
+
+    cell.className = 'cell';
+    cell.textContent = '·';
+
+    $('mines').appendChild(cell);
+  }
+
+  function drawPath(random) {
+    $('path').textContent = '';
+
+    for (var r = 0; r < 4; r++) {
+      var row = document.createElement('div');
+      row.className = 'path-row';
+
+      var chosen = random
+        ? Math.floor(Math.random() * 5)
+        : -1;
+
+      for (var c = 0; c < 5; c++) {
+        var item = document.createElement('span');
+
+        item.textContent = c === chosen ? '◆' : '·';
+
+        if (c === chosen) {
+          item.className = 'chosen';
         }
 
-        function showLiveWin() {
-            const game = fakeGames[Math.floor(Math.random() * fakeGames.length)];
-            const eurAmount = Math.floor(Math.random() * 240) + 10;
-            const formattedAmount = '+' + eurAmount.toLocaleString('fr-FR') + ' €';
+        row.appendChild(item);
+      }
 
-            const feedContainer = document.getElementById('live-feed');
-            
-            const winItem = document.createElement('div');
-            winItem.className = 'bg-zinc-900/95 backdrop-blur-md border border-zinc-800/80 rounded-xl p-3 shadow-[0_5px_20px_rgba(0,0,0,0.6)] flex items-center gap-3 animate-slide-up transition-all';
-            winItem.innerHTML = `
-                <div class="w-10 h-10 bg-gradient-to-br from-zinc-800 to-black rounded-lg flex items-center justify-center text-xl shadow-inner border border-zinc-700/50">
-                    ${game.icon}
-                </div>
-                <div class="flex-1 flex justify-between items-center">
-                    <div>
-                        <p class="text-[12px] font-bold text-white tracking-widest">ID: ${generateRandomId()}</p>
-                        <p class="text-[10px] text-zinc-400">${game.name}</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-sm font-black text-green-400">${formattedAmount}</p>
-                    </div>
-                </div>
-            `;
+      $('path').appendChild(row);
+    }
+  }
 
-            feedContainer.prepend(winItem);
+  function reset() {
+    clearTimeout(timer);
 
-            if (feedContainer.children.length > 3) {
-                const oldestItem = feedContainer.lastElementChild;
-                oldestItem.classList.remove('animate-slide-up');
-                oldestItem.classList.add('animate-fade-out');
-                
-                setTimeout(() => {
-                    if(oldestItem.parentNode) {
-                        oldestItem.remove();
-                    }
-                }, 400); 
-            }
+    busy = false;
+    $('run').disabled = false;
+
+    $('run').textContent = unlocked
+      ? 'Commencer →'
+      : 'Saisir mon code →';
+
+    var cells = $('mines').children;
+
+    for (var n = 0; n < cells.length; n++) {
+      cells[n].className = 'cell';
+      cells[n].textContent = '·';
+    }
+
+    $('coeff').textContent = '×1.00';
+    drawPath(false);
+    $('result-status').textContent = 'Prêt à commencer.';
+  }
+
+  for (var b = 0; b < buttons.length; b++) {
+    buttons[b].addEventListener('click', function () {
+      reset();
+
+      currentGame = this.getAttribute('data-game');
+
+      for (var n = 0; n < buttons.length; n++) {
+        var selected = buttons[n] === this;
+
+        buttons[n].className = selected
+          ? 'game active'
+          : 'game';
+
+        buttons[n].setAttribute(
+          'aria-pressed',
+          selected ? 'true' : 'false'
+        );
+      }
+
+      $('mines').hidden = currentGame !== 'mines';
+      $('aviator').hidden = currentGame !== 'aviator';
+      $('penalty').hidden = currentGame !== 'penalty';
+
+      $('game-title').textContent = names[currentGame];
+      $('caption').textContent = descriptions[currentGame];
+    });
+  }
+
+  $('run').addEventListener('click', function () {
+    if (!unlocked) {
+      $('pin-status').className = 'feedback error';
+
+      $('pin-status').textContent =
+        'Saisissez votre code puis cliquez sur « Activer mon accès ».';
+
+      $('pin').focus();
+      return;
+    }
+
+    if (busy) return;
+
+    busy = true;
+    $('run').disabled = true;
+    $('run').textContent = 'Préparation…';
+
+    timer = setTimeout(function () {
+      if (currentGame === 'mines') {
+        var selected = [];
+
+        while (selected.length < 4) {
+          var index = Math.floor(Math.random() * 25);
+
+          if (selected.indexOf(index) === -1) {
+            selected.push(index);
+          }
         }
 
-        setTimeout(function winLoop() {
-            showLiveWin();
-            const nextDelay = Math.floor(Math.random() * 4000) + 2000;
-            setTimeout(winLoop, nextDelay);
-        }, 1000);
-    </script>
+        var cells = $('mines').children;
+
+        for (var n = 0; n < cells.length; n++) {
+          var active = selected.indexOf(n) !== -1;
+
+          cells[n].className = active
+            ? 'cell safe'
+            : 'cell';
+
+          cells[n].textContent = active ? '◆' : '·';
+        }
+
+      } else if (currentGame === 'aviator') {
+        $('coeff').textContent =
+          '×' + (1.2 + Math.random() * 3.5).toFixed(2);
+
+      } else {
+        drawPath(true);
+      }
+
+      busy = false;
+      $('run').disabled = false;
+      $('run').textContent = 'Recommencer →';
+      $('result-status').textContent = 'Séquence terminée.';
+    }, 600);
+  });
+
+  $('reset').addEventListener('click', reset);
+
+  drawPath(false);
+})();
+</script>
 </body>
 </html>
